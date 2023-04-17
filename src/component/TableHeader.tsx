@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import Tbody from "./Tbody";
-import { Member } from "../App";
+import { Member } from "../modal";
 
 interface Props {
   deleteMember: (id: number) => void;
   updateMemberName: (name: string, oldName: string) => void;
   members: Member[];
-  setMember: React.Dispatch<React.SetStateAction<Member[]>>;
+  setMembers: React.Dispatch<React.SetStateAction<Member[]>>;
 }
 
 export default function TableHeader({
   deleteMember,
   members,
   updateMemberName,
-  setMember,
+  setMembers,
 }: Props) {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  // const [tableData, setTableData] = useState<Member[]>(members);
 
   const sortTableData = () => {
     const sortedData = members.sort((a, b) => {
@@ -29,7 +28,7 @@ export default function TableHeader({
       return 0;
     });
 
-    setMember(sortedData);
+    setMembers(sortedData);
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
   return (
