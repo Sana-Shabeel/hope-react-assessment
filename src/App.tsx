@@ -1,33 +1,84 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { useEffect, useState } from "react";
+import Search from "./component/Search";
+import AddMember from "./component/AddMember";
+import TableHeader from "./component/TableHeader";
+
+export interface Member {
+  id: number;
+  name: string;
+}
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [members, setMember] = useState<Member[]>([
+    {
+      id: 1,
+      name: "Anas Barre",
+    },
+    {
+      id: 2,
+      name: "John Doe",
+    },
+  ]);
+  const [searchName, setSearchName] = useState("");
+
+  // SAVING THE NOTES TO LOCALSTORAGE
+  useEffect(() => {
+    const savedMembers: Member[] = JSON.parse(
+      localStorage.getItem("members-hope-assesment") || "[]"
+    );
+
+    if (savedMembers) {
+      setMember(savedMembers);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("members-hope-assesment", JSON.stringify(members));
+    console.log("second uE", members);
+  }, [members]);
+
+  const addNewMember = (member: string) => {
+    if (member.trim() === "") return;
+    setMember([
+      ...members,
+      {
+        id: members.length + 1,
+        name: member,
+      },
+    ]);
+  };
+
+  const updateMemberName = (newName: string, oldName: string) => {
+    const updatedMembers = members.map((member) => {
+      if (member.name === oldName) {
+        return {
+          ...member,
+          name: newName,
+        };
+      }
+      return member;
+    });
+    console.log(updatedMembers);
+
+    setMember(updatedMembers);
+  };
+
+  const deleteMember = (id: number) => {
+    setMember((prev) => prev.filter((item) => item.id !== id));
+  };
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <div className="w-11/12 mx-auto mt-12 md:w-9/12 lg:w-1110">
+        <h1 className="text-3xl font-bold text-center mb-4">Name Book</h1>
+        <Search handleSearchMember={setSearchName} />
+        <AddMember addNewMember={addNewMember} />
+        <TableHeader
+          deleteMember={deleteMember}
+          members={members.filter((note) => note.name.includes(searchName))}
+          updateMemberName={updateMemberName}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   );
 }
