@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Member } from "../App";
+import { Member } from "../modal";
 import DeleteModal from "../Modal/DeleteModal";
 import { useDisclosure } from "@chakra-ui/react";
 
