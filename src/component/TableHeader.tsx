@@ -6,15 +6,17 @@ interface Props {
   deleteMember: (id: number) => void;
   updateMemberName: (name: string, oldName: string) => void;
   members: Member[];
+  setMember: React.Dispatch<React.SetStateAction<Member[]>>;
 }
 
 export default function TableHeader({
   deleteMember,
   members,
   updateMemberName,
+  setMember,
 }: Props) {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const [tableData, setTableData] = useState<Member[]>(members);
+  // const [tableData, setTableData] = useState<Member[]>(members);
 
   const sortTableData = () => {
     const sortedData = members.sort((a, b) => {
@@ -27,7 +29,6 @@ export default function TableHeader({
       return 0;
     });
 
-    setTableData(sortedData);
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
   return (

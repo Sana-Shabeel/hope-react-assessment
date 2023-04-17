@@ -77,6 +77,7 @@ function App() {
           deleteMember={deleteMember}
           members={members.filter((note) => note.name.includes(searchName))}
           updateMemberName={updateMemberName}
+          setMember={setMember}
         />
       </div>
     </div>
