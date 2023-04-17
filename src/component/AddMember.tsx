@@ -7,13 +7,14 @@ interface Props {
 const AddMember = ({ addNewMember }: Props) => {
   const [inputValue, setInputValue] = useState("");
 
-  const submitValue = () => {
+  const submitValue = (e: React.FormEvent) => {
+    e.preventDefault();
     addNewMember(inputValue);
     setInputValue("");
   };
 
   return (
-    <div className="flex items-center gap-1 mt-4">
+    <form onSubmit={submitValue} className="flex items-center gap-1 mt-4">
       <input
         className="border-2 w-4/5 h-10 rounded px-4 outline-none md:w-11/12"
         type="text"
@@ -28,7 +29,7 @@ const AddMember = ({ addNewMember }: Props) => {
       >
         Add
       </button>
-    </div>
+    </form>
   );
 };
 

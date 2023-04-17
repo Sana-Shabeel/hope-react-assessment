@@ -7,7 +7,7 @@ interface Props {
 
 const Search = ({ handleSearchMember }: Props) => {
   return (
-    <form className="border-2 rounded relative overflow-hidden flex justify-between items-center gap-4 bg-white">
+    <div className="border-2 rounded relative overflow-hidden flex justify-between items-center gap-4 bg-white">
       <input
         onChange={(e) => handleSearchMember(e.target.value)}
         className="w-full h-12  ml-4 outline-none"
@@ -15,7 +15,7 @@ const Search = ({ handleSearchMember }: Props) => {
         placeholder="Search the name..."
       />
       <AiOutlineSearch className="text-2xl mr-4" />
-    </form>
+    </div>
   );
 };
 
