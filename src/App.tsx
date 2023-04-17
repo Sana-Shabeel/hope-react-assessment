@@ -34,7 +34,6 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("members-hope-assesment", JSON.stringify(members));
-    console.log("second uE", members);
   }, [members]);
 
   const addNewMember = (member: string) => {
@@ -58,7 +57,6 @@ function App() {
       }
       return member;
     });
-    console.log(updatedMembers);
 
     setMember(updatedMembers);
   };
