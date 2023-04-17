@@ -29,6 +29,7 @@ export default function TableHeader({
       return 0;
     });
 
+    setMember(sortedData);
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
   return (
