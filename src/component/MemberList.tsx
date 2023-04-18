@@ -5,16 +5,13 @@ import AddMember from "./AddMember";
 import TableHeader from "./TableHeader";
 
 export interface MemberListProps {
-  initialMembers: Member[];
+  members: Member[];
+  setMembers: React.Dispatch<React.SetStateAction<Member[]>>;
 }
 
-export function MemberList({ initialMembers }: MemberListProps) {
-  const [members, setMembers] = useState<Member[]>(initialMembers);
+export function MemberList({ members, setMembers }: MemberListProps) {
+  //   const [members, setMembers] = useState<Member[]>(initialMembers);
   const [searchName, setSearchName] = useState("");
-
-  useEffect(() => {
-    localStorage.setItem("members-hope-assesment", JSON.stringify(members));
-  }, [members]);
 
   const addNewMember = (member: string) => {
     if (member.trim() === "") return;
